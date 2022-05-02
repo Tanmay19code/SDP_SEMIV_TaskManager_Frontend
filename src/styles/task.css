@@ -1,0 +1,18 @@
+.taskCardTitle {
+    color: #FFD369;
+    background: #393E46;
+    font-size: 20px;
+    font-weight: bold;
+    border-radius:50%;
+}
+.taskCard{
+    margin: 5px;
+    padding: 5px;
+    background: #bbbaba;
+    border-radius:7px;
+}
+.tasksHolder{
+    padding: 10px;
+    display: flex;
+    flex-wrap: wrap;
+}
