@@ -1,0 +1,7 @@
+.navbarHolder{
+    background-color: #041C32;
+    position: fixed;
+    width: 100%;
+    top: 0px;
+    z-index: 15 !important;
+}

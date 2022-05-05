@@ -1,12 +1,12 @@
 import React from "react";
-import {Link} from 'react-router-dom'
+import { Link } from "react-router-dom";
+import "../styles/common.css";
 
 const Navbar = ({ pathName }) => {
-
   return (
-    <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
+    <nav className="navbar navbar-expand-lg navbar-dark navbarHolder">
       <div className="container-fluid">
-        <Link to="/" className="navbar-brand" href="#">
+        <Link to="/" className="navbar-brand" href="/">
           Task Manager
         </Link>
         <button
@@ -34,7 +34,9 @@ const Navbar = ({ pathName }) => {
             <li className="nav-item">
               <Link
                 to="mytasks"
-                className={`nav-link ${pathName === "/mytasks" ? "active" : ""}`}
+                className={`nav-link ${
+                  pathName === "/mytasks" ? "active" : ""
+                }`}
                 aria-current="page"
               >
                 My Tasks
@@ -43,10 +45,34 @@ const Navbar = ({ pathName }) => {
             <li className="nav-item">
               <Link
                 to="pendingtasks"
-                className={`nav-link ${pathName === "/pendingtasks" ? "active" : ""}`}
+                className={`nav-link ${
+                  pathName === "/pendingtasks" ? "active" : ""
+                }`}
                 aria-current="page"
               >
                 Pending Tasks
+              </Link>
+            </li>
+            <li className="nav-item">
+              <Link
+                to="completedtasks"
+                className={`nav-link ${
+                  pathName === "/completedtasks" ? "active" : ""
+                }`}
+                aria-current="page"
+              >
+                Completed Tasks
+              </Link>
+            </li>
+            <li className="nav-item">
+              <Link
+                to="taskhistory"
+                className={`nav-link ${
+                  pathName === "/taskhistory" ? "active" : ""
+                }`}
+                aria-current="page"
+              >
+                Task History
               </Link>
             </li>
           </ul>
