@@ -4,8 +4,9 @@ import "../styles/task.css";
 
 const MyTasks = () => {
   return (
-    <>
-      <div className="tasksHolder pageContainer">
+    <div className="pageContainer">
+      <p className="titlePara">My Tasks</p>
+      <div className="tasksHolder">
         <TaskCard
           title={`My first task`}
           description={`This is the first task`}
@@ -24,7 +25,7 @@ const MyTasks = () => {
         <TaskCard />
         <TaskCard />
       </div>
-    </>
+    </div>
   );
 };
 

@@ -1,7 +1,9 @@
 import React from "react";
 import "../styles/task.css";
+import completedImg from "../assets/images/completedImgHorizontal.png";
+import incompletedImg from "../assets/images/incompleteImgHorizontal.png";
 
-const PendingTaskCard = ({ title, description }) => {
+const TaskHistoryCard = ({ title, description, isCompleted }) => {
   return (
     <div
       className="card taskCard"
@@ -14,24 +16,20 @@ const PendingTaskCard = ({ title, description }) => {
       <div className="card-header taskCardTitle">{title}</div>
       <div className="card-body">
         <p className="card-text">{description}</p>
-        <div className="buttonHolder">
-            <button className="btn buttonCross">
-              <b>❌</b>
-              <span className="crossButtonSpan">Discard</span>
-            </button>
-            <button className="btn buttonTick">
-              <b>✔</b>
-              <span className="tickButtonSpan">Completed</span>
-            </button>
-          </div>
+        {isCompleted ? (
+          <img src={completedImg} className="completedImg"></img>
+        ) : (
+          <img src={incompletedImg} className="completedImg"></img>
+        )}
       </div>
     </div>
   );
 };
 
-PendingTaskCard.defaultProps = {
+TaskHistoryCard.defaultProps = {
   title: "Enter Title",
   description: "Please Enter Description in this description box",
+  isCompleted: false,
 };
 
-export default PendingTaskCard;
+export default TaskHistoryCard;

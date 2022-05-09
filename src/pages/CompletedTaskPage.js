@@ -1,10 +1,15 @@
-import React from 'react'
-import CompletedTaskCard from '../components/CompletedTaskCard'
+import React from "react";
+import CompletedTaskCard from "../components/CompletedTaskCard";
 
 const CompletedTaskPage = () => {
   return (
-    <div className='pageContainer'>CompletedTaskPage</div>
-  )
-}
+    <div className="pageContainer">
+      <p className="titlePara">Completed Tasks</p>
+      <div className="tasksHolder">
+        <CompletedTaskCard />
+      </div>
+    </div>
+  );
+};
 
-export default CompletedTaskPage
+export default CompletedTaskPage;

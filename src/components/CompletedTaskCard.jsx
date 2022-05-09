@@ -1,7 +1,8 @@
 import React from "react";
 import "../styles/task.css";
+import completedImg from '../assets/images/completedImgHorizontal.png'
 
-const CompletedTaskCard = ({title, description}) => {
+const CompletedTaskCard = ({ title, description }) => {
   return (
     <div
       className="card taskCard"
@@ -14,15 +15,7 @@ const CompletedTaskCard = ({title, description}) => {
       <div className="card-header taskCardTitle">{title}</div>
       <div className="card-body">
         <p className="card-text">{description}</p>
-        <div className="buttonHolder">
-          <button className="btn buttonCross">
-            <b>❌</b>
-          </button>
-
-          <button className="btn buttonTick">
-            <b>✔</b>
-          </button>
-        </div>
+        <img src={completedImg} className="completedImg"></img>
       </div>
     </div>
   );
