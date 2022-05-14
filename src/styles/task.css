@@ -1,6 +1,18 @@
 .pageContainer {
   margin-top: 100px;
 }
+.editIcon{
+  position: absolute;
+  right: 13px;
+  top: 13px;
+  width: 30px;
+  padding: 3px;
+}
+.editIcon:hover{
+  cursor: pointer;
+  border-radius: 50%;
+  padding: 0px;
+}
 .taskCardTitle {
   /* color: #ffd369; */
   color: #fff;

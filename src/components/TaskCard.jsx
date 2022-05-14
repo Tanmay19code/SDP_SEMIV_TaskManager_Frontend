@@ -1,6 +1,8 @@
 import React from "react";
 import "../styles/task.css";
-import completedImg from '../assets/images/completedImgHorizontal.png'
+import completedImg from "../assets/images/completedImgHorizontal.png";
+import editIcon from "../assets/images/editIconGrey.svg";
+import undoIcon from "../assets/images/undoIconWhite.png";
 
 const TaskCard = ({ title, description, isCompleted }) => {
   return (
@@ -13,6 +15,11 @@ const TaskCard = ({ title, description, isCompleted }) => {
       }}
     >
       <div className="card-header taskCardTitle">{title}</div>
+      <img
+        src={isCompleted ? undoIcon : editIcon}
+        alt="EditIcon"
+        className="editIcon"
+      />
       <div className="card-body">
         <p className="card-text">{description}</p>
         {isCompleted ? (

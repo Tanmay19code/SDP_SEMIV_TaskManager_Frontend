@@ -1,8 +1,48 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import "../styles/common.css";
 
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { loadUser, logout } from "../redux/actions/authActions.js";
+import store from '../redux/store'
+
 const Navbar = ({ pathName, isAunthenticated }) => {
+  let state;
+  const navigate = useNavigate();
+  const dispatch = useDispatch(null);
+  const [user, setUser] = useState(undefined);
+
+  useEffect(() => {
+    dispatch(loadUser())
+      .then((result) => {
+        state = JSON.parse(localStorage.getItem("state"));
+        setUser(state.auth.userDetail);
+      })
+      .catch((error) => {
+        console.error(error.message);
+      });
+  }, []);
+  console.log("USER=>", user);
+  // console.log("Global Store State=>", store.getState());
+
+  const logoutBtn = () => {
+    // useEffect(() => {
+    dispatch(logout())
+      .then((result) => {
+        // console.log(result);
+        // navigate("/");
+        setTimeout(() => {
+          // window.location.reload(false);
+          navigate("/");
+        }, 3);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+    // }, []);
+  };
+
   return (
     <>
       {isAunthenticated ? (
@@ -19,7 +59,7 @@ const Navbar = ({ pathName, isAunthenticated }) => {
               Tanmay Mutalik
             </Link>
             <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
-              <li>
+              <li onClick={logoutBtn}>
                 <a className="dropdown-item" href="#">
                   Logout
                 </a>
@@ -47,7 +87,7 @@ const Navbar = ({ pathName, isAunthenticated }) => {
                     className={`nav-link ${pathName === "/" ? "active" : ""}`}
                     aria-current="page"
                   >
-                    Home
+                    My Tasks
                   </Link>
                 </li>
                 <li className="nav-item">
@@ -59,17 +99,6 @@ const Navbar = ({ pathName, isAunthenticated }) => {
                     aria-current="page"
                   >
                     Create Task
-                  </Link>
-                </li>
-                <li className="nav-item">
-                  <Link
-                    to="mytasks"
-                    className={`nav-link ${
-                      pathName === "/mytasks" ? "active" : ""
-                    }`}
-                    aria-current="page"
-                  >
-                    My Tasks
                   </Link>
                 </li>
                 <li className="nav-item">
@@ -112,10 +141,7 @@ const Navbar = ({ pathName, isAunthenticated }) => {
       ) : (
         <nav className="navbar navbar-expand-lg navbar-dark navbarHolder">
           <div className="container-fluid">
-            <Link
-              to="/"
-              className="navbar-brand"
-            >
+            <Link to="/" className="navbar-brand">
               Task Manager
             </Link>
             <button
@@ -137,7 +163,9 @@ const Navbar = ({ pathName, isAunthenticated }) => {
                 <li className="nav-item">
                   <Link
                     to="/"
-                    className={`nav-link ${pathName === "/" ? "active" : ""}`}
+                    className={`nav-link ${
+                      pathName === "/" ? "active" : ""
+                    }`}
                     aria-current="page"
                   >
                     Home
@@ -146,7 +174,9 @@ const Navbar = ({ pathName, isAunthenticated }) => {
                 <li className="nav-item">
                   <Link
                     to="/login"
-                    className={`nav-link ${pathName === "/login" ? "active" : ""}`}
+                    className={`nav-link ${
+                      pathName === "/login" ? "active" : ""
+                    }`}
                     aria-current="page"
                   >
                     Login

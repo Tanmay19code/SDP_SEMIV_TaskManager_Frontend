@@ -1,5 +1,6 @@
 import React from "react";
 import "../styles/task.css";
+import editIcon from "../assets/images/editIconGrey.svg";
 
 const PendingTaskCard = ({ title, description }) => {
   return (
@@ -12,6 +13,7 @@ const PendingTaskCard = ({ title, description }) => {
       }}
     >
       <div className="card-header taskCardTitle">{title}</div>
+      <img src={editIcon} alt="EditIcon" className="editIcon" />
       <div className="card-body">
         <p className="card-text">{description}</p>
         <div className="buttonHolder">

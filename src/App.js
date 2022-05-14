@@ -11,24 +11,30 @@ import Homepage from "./pages/Homepage.js";
 import MyTasks from "./pages/MyTasks";
 import PendingTaskPage from "./pages/PendingTaskPage";
 import Modal from "./components/Modal";
+import Loader from "./components/Loader";
 import CompletedTaskPage from "./pages/CompletedTaskPage";
 import TaskHistoryPage from "./pages/TaskHistoryPage";
 import CreateTaskPage from "./pages/CreateTaskPage";
 import LoginPage from "./pages/LoginPage";
 import RegisterPage from "./pages/RegisterPage";
 
+import store from "./redux/store";
+
 const App = () => {
   const location = useLocation();
   /***********/
-  let isAuthenticated = false;
+  // let isAuthenticated = false;
+  let isAuthenticated = store.getState().auth.isAuthenticated;
   /***********/
+
+  // console.log(store.getState().auth.isAuthenticated);
   return (
     <>
       <Navbar pathName={location.pathname} isAunthenticated={isAuthenticated} />
+      {/* <Loader /> */}
       {isAuthenticated ? (
         <Routes>
-          <Route exact path="/" element={<Homepage />} />
-          <Route exact path="/mytasks" element={<MyTasks />} />
+          <Route exact path="/" element={<MyTasks />} />
           <Route exact path="/pendingtasks" element={<PendingTaskPage />} />
           <Route exact path="/completedtasks" element={<CompletedTaskPage />} />
           <Route exact path="/taskhistory" element={<TaskHistoryPage />} />
