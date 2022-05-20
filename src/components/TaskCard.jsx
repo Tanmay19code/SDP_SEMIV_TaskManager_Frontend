@@ -4,7 +4,16 @@ import completedImg from "../assets/images/completedImgHorizontal.png";
 import editIcon from "../assets/images/editIconGrey.svg";
 import undoIcon from "../assets/images/undoIconWhite.png";
 
-const TaskCard = ({ title, description, isCompleted }) => {
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { updateStatus } from "../redux/actions/taskActions";
+
+const TaskCard = ({ id, title, description, isCompleted }) => {
+  const dispatch = useDispatch(null);
+
+  const handleTask = (status) => {
+    dispatch(updateStatus(status, id));
+  };
   return (
     <div
       className="card taskCard"
@@ -16,6 +25,9 @@ const TaskCard = ({ title, description, isCompleted }) => {
     >
       <div className="card-header taskCardTitle">{title}</div>
       <img
+        onClick={() => {
+          handleTask(false);
+        }}
         src={isCompleted ? undoIcon : editIcon}
         alt="EditIcon"
         className="editIcon"
@@ -30,7 +42,12 @@ const TaskCard = ({ title, description, isCompleted }) => {
               <b>❌</b>
               <span className="crossButtonSpan">Discard</span>
             </button>
-            <button className="btn buttonTick">
+            <button
+              onClick={() => {
+                handleTask(true);
+              }}
+              className="btn buttonTick"
+            >
               <b>✔</b>
               <span className="tickButtonSpan">Completed</span>
             </button>

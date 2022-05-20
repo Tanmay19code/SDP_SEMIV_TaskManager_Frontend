@@ -5,10 +5,11 @@ import "../styles/common.css";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { loadUser, logout } from "../redux/actions/authActions.js";
-import store from '../redux/store'
+import store from "../redux/store";
 
 const Navbar = ({ pathName, isAunthenticated }) => {
-  let state;
+  let state,
+    userName = "";
   const navigate = useNavigate();
   const dispatch = useDispatch(null);
   const [user, setUser] = useState(undefined);
@@ -22,8 +23,9 @@ const Navbar = ({ pathName, isAunthenticated }) => {
       .catch((error) => {
         console.error(error.message);
       });
-  }, []);
+  }, [store.getState().auth.auth?.authtoken]);
   console.log("USER=>", user);
+  userName = user?.name;
   // console.log("Global Store State=>", store.getState());
 
   const logoutBtn = () => {
@@ -36,6 +38,8 @@ const Navbar = ({ pathName, isAunthenticated }) => {
           // window.location.reload(false);
           navigate("/");
         }, 3);
+        setUser(null);
+        userName = "";
       })
       .catch((err) => {
         console.log(err);
@@ -56,7 +60,8 @@ const Navbar = ({ pathName, isAunthenticated }) => {
               data-bs-toggle="dropdown"
               aria-expanded="false"
             >
-              Tanmay Mutalik
+              {/* Tanmay Mutalik */}
+              {userName}
             </Link>
             <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
               <li onClick={logoutBtn}>
@@ -163,9 +168,7 @@ const Navbar = ({ pathName, isAunthenticated }) => {
                 <li className="nav-item">
                   <Link
                     to="/"
-                    className={`nav-link ${
-                      pathName === "/" ? "active" : ""
-                    }`}
+                    className={`nav-link ${pathName === "/" ? "active" : ""}`}
                     aria-current="page"
                   >
                     Home

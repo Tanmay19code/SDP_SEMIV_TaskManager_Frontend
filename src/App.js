@@ -22,15 +22,21 @@ import store from "./redux/store";
 
 const App = () => {
   const location = useLocation();
+  let globalState = store.getState();
+  // console.log(state.auth.auth.name)
   /***********/
   // let isAuthenticated = false;
-  let isAuthenticated = store.getState().auth.isAuthenticated;
+  let isAuthenticated = globalState.auth.isAuthenticated;
+  // let userName = globalState.auth.auth.name;
   /***********/
 
   // console.log(store.getState().auth.isAuthenticated);
   return (
     <>
-      <Navbar pathName={location.pathname} isAunthenticated={isAuthenticated} />
+      <Navbar
+        pathName={location.pathname}
+        isAunthenticated={isAuthenticated}
+      />
       {/* <Loader /> */}
       {isAuthenticated ? (
         <Routes>

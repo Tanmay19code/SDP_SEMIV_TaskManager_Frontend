@@ -11,7 +11,7 @@ import jwtDecode from "jwt-decode";
 
 const initialState = {
   userDetail: {},
-  token: null,
+  authtoken: null,
   isAuthenticated: null,
   loading: true,
   auth: null,
@@ -31,9 +31,8 @@ export default function (state = initialState, action) {
         userDetail: payload,
         isAuthenticated: true,
         loading: false,
-        auth: payload,
-        token: payload?.authtoken,
         _id: user !== null && user?._id,
+        error:""
       };
 
     case REGISTER_SUCCESS:

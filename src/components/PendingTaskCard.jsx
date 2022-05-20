@@ -2,7 +2,15 @@ import React from "react";
 import "../styles/task.css";
 import editIcon from "../assets/images/editIconGrey.svg";
 
-const PendingTaskCard = ({ title, description }) => {
+import { useDispatch } from "react-redux";
+import { updateStatus } from "../redux/actions/taskActions";
+
+const PendingTaskCard = ({ id, title, description }) => {
+  const dispatch = useDispatch(null);
+
+  const handleTask = (status) => {
+    dispatch(updateStatus(status, id));
+  };
   return (
     <div
       className="card taskCard"
@@ -17,15 +25,20 @@ const PendingTaskCard = ({ title, description }) => {
       <div className="card-body">
         <p className="card-text">{description}</p>
         <div className="buttonHolder">
-            <button className="btn buttonCross">
-              <b>❌</b>
-              <span className="crossButtonSpan">Discard</span>
-            </button>
-            <button className="btn buttonTick">
-              <b>✔</b>
-              <span className="tickButtonSpan">Completed</span>
-            </button>
-          </div>
+          <button className="btn buttonCross">
+            <b>❌</b>
+            <span className="crossButtonSpan">Discard</span>
+          </button>
+          <button
+            onClick={() => {
+              handleTask(true);
+            }}
+            className="btn buttonTick"
+          >
+            <b>✔</b>
+            <span className="tickButtonSpan">Completed</span>
+          </button>
+        </div>
       </div>
     </div>
   );

@@ -1,10 +1,18 @@
 import React from "react";
 import "../styles/task.css";
-import completedImg from '../assets/images/completedImgHorizontal.png'
+import completedImg from "../assets/images/completedImgHorizontal.png";
 // import returnIcon from "../assets/images/returnIconWhiteImg.png";
 import undoIcon from "../assets/images/undoIconWhite.png";
 
-const CompletedTaskCard = ({ title, description }) => {
+import { useDispatch } from "react-redux";
+import { updateStatus } from "../redux/actions/taskActions";
+
+const CompletedTaskCard = ({ id, title, description }) => {
+  const dispatch = useDispatch(null);
+
+  const handleTask = (status) => {
+    dispatch(updateStatus(status, id));
+  };
   return (
     <div
       className="card taskCard"
@@ -15,7 +23,14 @@ const CompletedTaskCard = ({ title, description }) => {
       }}
     >
       <div className="card-header taskCardTitle">{title}</div>
-      <img src={undoIcon} alt="returnIcon" className="editIcon" />
+      <img
+        onClick={() => {
+          handleTask(false);
+        }}
+        src={undoIcon}
+        alt="returnIcon"
+        className="editIcon"
+      />
       <div className="card-body">
         <p className="card-text">{description}</p>
         <img src={completedImg} className="completedImg"></img>
