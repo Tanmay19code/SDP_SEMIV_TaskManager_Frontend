@@ -85,7 +85,7 @@ const RegisterPage = () => {
                     <div className="loginButton" onClick={(e)=>onSubmit(e)}>REGISTER</div>
                   </div>
                   <div className="newUserTextHolder">
-                    <Link to="/login">Already registered? Login.</Link>
+                    <Link to="/">Already registered? Login.</Link>
                   </div>
                 </form>
               </div>

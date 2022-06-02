@@ -7,11 +7,17 @@ import undoIcon from "../assets/images/undoIconWhite.png";
 import { useDispatch } from "react-redux";
 import { updateStatus } from "../redux/actions/taskActions";
 
-const CompletedTaskCard = ({ id, title, description }) => {
+const CompletedTaskCard = ({ id, title, description, setEffectVar }) => {
   const dispatch = useDispatch(null);
 
   const handleTask = (status) => {
-    dispatch(updateStatus(status, id));
+    dispatch(updateStatus(status, id))
+    .then(() => {
+      setEffectVar(true);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
   };
   return (
     <div

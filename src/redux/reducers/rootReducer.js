@@ -4,7 +4,7 @@ import taskReducer from "./authReducers/taskReducer";
 
 const rootReducer = combineReducers({
   auth: authReducer,
-  task: taskReducer 
+  task: taskReducer,
 });
 
 export default rootReducer;

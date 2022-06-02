@@ -69,12 +69,23 @@ export default function (state = initialState, action) {
         ...state,
         fetchedTasks: payload,
         message: "",
-      }
+      };
     case UPDATE_TASK_FAILURE:
       return {
         ...state,
         message: payload,
-      }
+      };
+    case DELETE_TASK_SUCCESS:
+      return {
+        ...state,
+        fetchedTasks: payload,
+        message: "",
+      };
+    case DELETE_TASK_FAILURE:
+      return {
+        ...state,
+        message: payload,
+      };
     default:
       return state;
   }

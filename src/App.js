@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   BrowserRouter as Router,
   Routes,
@@ -23,6 +23,9 @@ import store from "./redux/store";
 const App = () => {
   const location = useLocation();
   let globalState = store.getState();
+
+  const [globalEffectVar, setGlobalEffectVar] = useState(false);
+
   // console.log(state.auth.auth.name)
   /***********/
   // let isAuthenticated = false;
@@ -31,13 +34,21 @@ const App = () => {
   /***********/
 
   // console.log(store.getState().auth.isAuthenticated);
+  useEffect(() => {
+    console.log("APP=>", globalState.auth.loading);
+    // setLoading(globalState.auth.loading);
+    // console.log("Loading=>", loading);
+  }, [globalState.auth.loading]);
+
   return (
     <>
       <Navbar
+        setGlobalEffectVar={setGlobalEffectVar}
+        globalEffectVar={globalEffectVar}
         pathName={location.pathname}
         isAunthenticated={isAuthenticated}
       />
-      {/* <Loader /> */}
+
       {isAuthenticated ? (
         <Routes>
           <Route exact path="/" element={<MyTasks />} />
@@ -52,8 +63,12 @@ const App = () => {
         </Routes>
       ) : (
         <Routes>
-          <Route exact path="/" element={<Homepage />} />
-          <Route exact path="/login" element={<LoginPage />} />
+          {/* <Route exact path="/" element={<Homepage />} /> */}
+          <Route
+            exact
+            path="/"
+            element={<LoginPage setGlobalEffectVar={setGlobalEffectVar} />}
+          />
           <Route exact path="/register" element={<RegisterPage />} />
         </Routes>
       )}

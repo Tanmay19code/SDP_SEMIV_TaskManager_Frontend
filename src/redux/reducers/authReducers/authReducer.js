@@ -6,6 +6,8 @@ import {
   REGISTER_FAIL,
   REGISTER_SUCCESS,
   USER_LOADED,
+  SET_LOADING_TRUE,
+  SET_LOADING_FALSE,
 } from "../../constants/authTypes.js";
 import jwtDecode from "jwt-decode";
 
@@ -32,7 +34,7 @@ export default function (state = initialState, action) {
         isAuthenticated: true,
         loading: false,
         _id: user !== null && user?._id,
-        error:""
+        error: "",
       };
 
     case REGISTER_SUCCESS:
@@ -59,11 +61,11 @@ export default function (state = initialState, action) {
         _id: user !== null && user?._id,
       };
     case REGISTER_FAIL:
-      return state;
+      return { ...state, loading: false };
     case AUTH_ERROR:
-      return state;
+      return { ...state, loading: false };
     case LOGIN_FAIL:
-      return state;
+      return { ...state, loading: false };
     case LOGOUT:
       return {
         ...state,
@@ -74,7 +76,17 @@ export default function (state = initialState, action) {
         _id: null,
         userDetail: null,
       };
+    case SET_LOADING_TRUE: {
+      return {
+        loading: true,
+      };
+    }
+    case SET_LOADING_FALSE: {
+      return {
+        loading: false,
+      };
+    }
     default:
-      return state;
+      return { ...state };
   }
 }

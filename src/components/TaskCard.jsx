@@ -6,14 +6,30 @@ import undoIcon from "../assets/images/undoIconWhite.png";
 
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { updateStatus } from "../redux/actions/taskActions";
+import { updateStatus, deleteTask } from "../redux/actions/taskActions";
 
-const TaskCard = ({ id, title, description, isCompleted }) => {
+import Loader from "../components/Loader";
+
+const TaskCard = ({ id, title, description, isCompleted, setEffectVar }) => {
   const dispatch = useDispatch(null);
 
   const handleTask = (status) => {
-    dispatch(updateStatus(status, id));
+    dispatch(updateStatus(status, id))
+      .then(() => {
+        setEffectVar(true);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+    // setEffectVar(true)
   };
+
+  const handleDeleteTask = () => {
+    dispatch(deleteTask(id)).then(() => {
+      setEffectVar(true);
+    });
+  };
+
   return (
     <div
       className="card taskCard"
@@ -38,7 +54,12 @@ const TaskCard = ({ id, title, description, isCompleted }) => {
           <img src={completedImg} className="completedImg"></img>
         ) : (
           <div className="buttonHolder">
-            <button className="btn buttonCross">
+            <button
+              onClick={() => {
+                handleDeleteTask();
+              }}
+              className="btn buttonCross"
+            >
               <b>❌</b>
               <span className="crossButtonSpan">Discard</span>
             </button>

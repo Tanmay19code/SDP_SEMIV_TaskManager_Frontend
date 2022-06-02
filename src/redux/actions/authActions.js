@@ -7,6 +7,8 @@ import {
   REGISTER_FAIL,
   REGISTER_SUCCESS,
   USER_LOADED,
+  SET_LOADING_TRUE,
+  SET_LOADING_FALSE,
 } from "../constants/authTypes";
 import setAuthToken from "../utils/setAuthToken";
 
@@ -133,4 +135,22 @@ export const logout = () => (dispatch) => {
   // localStorage.setItem("state", null);
   console.log("logged out");
   dispatch({ type: LOGOUT });
+};
+
+export const setLoadingTrue = () => (dispatch) => {
+    // console.log("Loading action true");
+    dispatch({
+      type: SET_LOADING_TRUE,
+      payload: "Loading set to TRUE",
+    });
+  
+};
+
+export const setLoadingFalse = () => (dispatch) => {
+    // console.log("Loading action false");
+    dispatch({
+      type: SET_LOADING_FALSE,
+      payload: "Loading set to FALSE",
+    });
+  
 };

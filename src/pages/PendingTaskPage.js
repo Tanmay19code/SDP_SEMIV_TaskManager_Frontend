@@ -2,14 +2,21 @@ import React, { useState, useEffect } from "react";
 import PendingTaskCard from "../components/PendingTaskCard";
 
 import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
 import { getMyAllTasksWithDateAndStatus } from "../redux/actions/taskActions";
 import store from "../redux/store";
+
+import Loader from "../components/Loader";
+
+
 
 const PendingTaskPage = () => {
   let globalState = store.getState();
 
   const [tasks, setTasks] = useState({});
+
+  const [loading, setLoading] = useState(false);
+
+  const [effectVar, setEffectVar] = useState(false);
 
   const dispatch = useDispatch(null);
 
@@ -17,15 +24,22 @@ const PendingTaskPage = () => {
   let isCompleted = false;
 
   useEffect(() => {
-    dispatch(getMyAllTasksWithDateAndStatus(todayDate, isCompleted)).then(
-      () => {
+    setLoading(true);
+    setEffectVar(false);
+    dispatch(getMyAllTasksWithDateAndStatus(todayDate, isCompleted))
+      .then(() => {
         setTasks(globalState.task.fetchedTasks);
-      }
-    );
-  }, [globalState.task.fetchedTasks.noOfTasksFound]);
-  console.log("Pending Tasks=>",tasks);
+        setLoading(false);
+      })
+      .catch((e) => {
+        console.error(e);
+      });
+  }, [globalState.task.fetchedTasks.noOfTasksFound, effectVar]);
+  console.log("Pending Tasks=>", tasks);
 
   return (
+    <>
+    {loading && <Loader />}
     <div className="pageContainer">
       <p className="titlePara">Pending Tasks</p>
       <div className="tasksHolder">
@@ -37,6 +51,7 @@ const PendingTaskPage = () => {
                 id={task._id}
                 title={task.title}
                 description={task.description}
+                setEffectVar={setEffectVar}
               />
             );
           })
@@ -45,6 +60,7 @@ const PendingTaskPage = () => {
         )}
       </div>
     </div>
+    </>
   );
 };
 

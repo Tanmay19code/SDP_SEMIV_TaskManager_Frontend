@@ -195,7 +195,7 @@ export const getMyAllTasksWithDateAndStatus =
     }
   };
 
-export const updateStatus = (isCompleted,id) => async (dispatch) => {
+export const updateStatus = (isCompleted, id) => async (dispatch) => {
   const state = localStorage.getItem("state");
   const stateObj = JSON.parse(state);
   // const authtoken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjFjNDViODhjMTZhYmFkOWUyNmExMmIwIn0sImlhdCI6MTY0MTU3NzI0NH0.d9jZycUi8GkPwizo3Qepf4jadxIItPOmRz9qBY8NtKs"
@@ -225,6 +225,39 @@ export const updateStatus = (isCompleted,id) => async (dispatch) => {
     console.log(error);
     dispatch({
       type: UPDATE_TASK_FAILURE,
+      payload: error,
+    });
+  }
+};
+
+export const deleteTask = (id) => async (dispatch) => {
+  const state = localStorage.getItem("state");
+  const stateObj = JSON.parse(state);
+  // const authtoken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjFjNDViODhjMTZhYmFkOWUyNmExMmIwIn0sImlhdCI6MTY0MTU3NzI0NH0.d9jZycUi8GkPwizo3Qepf4jadxIItPOmRz9qBY8NtKs"
+  const authtoken = stateObj.auth.auth.authtoken;
+  // console.log(authtoken);
+  const config = {
+    headers: {
+      "Content-Type": "application/json",
+      authtoken: authtoken,
+    },
+  };
+  const body = {};
+  try {
+    const res = await axios.post(
+      `http://localhost:5000/api/task/deletemytask/${id}`,
+      body,
+      config
+    );
+    console.log("RES=>", res.data);
+    dispatch({
+      type: DELETE_TASK_SUCCESS,
+      payload: res.data,
+    });
+  } catch (error) {
+    console.log(error);
+    dispatch({
+      type: DELETE_TASK_FAILURE,
       payload: error,
     });
   }

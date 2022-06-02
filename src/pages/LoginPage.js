@@ -8,7 +8,9 @@ import { useNavigate } from "react-router-dom";
 import { login } from "../redux/actions/authActions.js";
 import store from "../redux/store";
 
-const LoginPage = () => {
+import Loader from "../components/Loader";
+
+const LoginPage = ({setGlobalEffectVar}) => {
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -19,63 +21,73 @@ const LoginPage = () => {
     console.log(formData);
   };
 
+  const [loading, setLoading] = useState(false);
+
   const dispatch = useDispatch(null);
   const navigate = useNavigate();
 
   const onSubmit = async (e) => {
     e.preventDefault();
-    dispatch(login(formData.email, formData.password)).then(() => {
-      // navigate("/");
-      // setTimeout(() => {
-      //   window.location.reload(false);
-      // }, 3);
-      // dispatch(loadUser());
-    });
+    setLoading(true);
+    dispatch(login(formData.email, formData.password))
+      .then(() => {
+        setGlobalEffectVar(true);
+        navigate("/");
+        setLoading(false);
+      })
+      .catch((e) => {
+        console.log(e);
+      });
   };
 
   return (
-    <div className="pageContainer">
-      <div className="container loginContainer">
-        <div className="row">
-          <div className="col-lg-3 col-md-2"></div>
-          <div className="col-lg-6 col-md-8 login-box">
-            <div className="col-lg-12 login-title">LOGIN</div>
+    <>
+      {loading && <Loader />}
+      <div className="pageContainer">
+        <div className="container loginContainer">
+          <div className="row">
+            <div className="col-lg-3 col-md-2"></div>
+            <div className="col-lg-6 col-md-8 login-box">
+              <div className="col-lg-12 login-title">LOGIN</div>
 
-            <div className="col-lg-12 login-form">
               <div className="col-lg-12 login-form">
-                <form>
-                  <div className="form-group">
-                    <label className="form-control-label">EMAIL</label>
-                    <input
-                      type="email"
-                      className="form-control"
-                      name="email"
-                      onChange={(e) => onChange(e)}
-                    />
-                  </div>
-                  <div className="form-group">
-                    <label className="form-control-label">PASSWORD</label>
-                    <input
-                      type="password"
-                      className="form-control"
-                      name="password"
-                      onChange={(e) => onChange(e)}
-                    />
-                  </div>
+                <div className="col-lg-12 login-form">
+                  <form>
+                    <div className="form-group">
+                      <label className="form-control-label">EMAIL</label>
+                      <input
+                        type="email"
+                        className="form-control"
+                        name="email"
+                        onChange={(e) => onChange(e)}
+                      />
+                    </div>
+                    <div className="form-group">
+                      <label className="form-control-label">PASSWORD</label>
+                      <input
+                        type="password"
+                        className="form-control"
+                        name="password"
+                        onChange={(e) => onChange(e)}
+                      />
+                    </div>
 
-                  <div className="loginButtonHolder">
-                    <div className="loginButton" onClick={onSubmit}>LOGIN</div>
-                  </div>
-                  <div className="newUserTextHolder">
-                    <Link to="/register">New here? Register.</Link>
-                  </div>
-                </form>
+                    <div className="loginButtonHolder">
+                      <div className="loginButton" onClick={onSubmit}>
+                        LOGIN
+                      </div>
+                    </div>
+                    <div className="newUserTextHolder">
+                      <Link to="/register">New here? Register.</Link>
+                    </div>
+                  </form>
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 

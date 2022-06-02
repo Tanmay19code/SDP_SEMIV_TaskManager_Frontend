@@ -6,10 +6,16 @@ import { useNavigate } from "react-router-dom";
 import { getMyAllTasksWithDateAndStatus } from "../redux/actions/taskActions";
 import store from "../redux/store";
 
+import Loader from "../components/Loader";
+
 const CompletedTaskPage = () => {
   let globalState = store.getState();
 
   const [tasks, setTasks] = useState({});
+
+  const [loading, setLoading] = useState(false);
+
+  const [effectVar, setEffectVar] = useState(false);
 
   const dispatch = useDispatch(null);
 
@@ -17,15 +23,23 @@ const CompletedTaskPage = () => {
   let isCompleted = true;
 
   useEffect(() => {
+    setLoading(true);
+    setEffectVar(false);
     dispatch(getMyAllTasksWithDateAndStatus(todayDate, isCompleted)).then(
       () => {
         setTasks(globalState.task.fetchedTasks);
+        setLoading(false);
       }
-    );
-  }, [globalState.task.fetchedTasks.noOfTasksFound]);
+    )
+    .catch((e) => {
+      console.log(e);
+    });
+  }, [globalState.task.fetchedTasks.noOfTasksFound, effectVar]);
   console.log("Completed Tasks=>", tasks);
 
   return (
+    <>
+      {loading && <Loader />}
     <div className="pageContainer">
       <p className="titlePara">Completed Tasks</p>
       <div className="tasksHolder">
@@ -37,6 +51,7 @@ const CompletedTaskPage = () => {
                 id={task._id}
                 title={task.title}
                 description={task.description}
+                setEffectVar={setEffectVar}
               />
             );
           })
@@ -45,6 +60,7 @@ const CompletedTaskPage = () => {
         )}
       </div>
     </div>
+    </>
   );
 };
 

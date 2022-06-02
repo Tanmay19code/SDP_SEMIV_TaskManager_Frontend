@@ -7,48 +7,69 @@ import { useNavigate } from "react-router-dom";
 import { loadUser, logout } from "../redux/actions/authActions.js";
 import store from "../redux/store";
 
-const Navbar = ({ pathName, isAunthenticated }) => {
+import Loader from "./Loader";
+
+const Navbar = ({
+  pathName,
+  isAunthenticated,
+  setGlobalEffectVar,
+  globalEffectVar,
+}) => {
   let state,
     userName = "";
+
+  const [loading, setLoading] = useState(false);
+
+  const [effectVar, setEffectVar] = useState(false);
+
   const navigate = useNavigate();
   const dispatch = useDispatch(null);
   const [user, setUser] = useState(undefined);
 
+  console.log("Loading=>", loading);
+
   useEffect(() => {
+    // dispatch(setLoadingTrue());
+    setEffectVar(false);
+    setGlobalEffectVar(false);
     dispatch(loadUser())
       .then((result) => {
         state = JSON.parse(localStorage.getItem("state"));
-        setUser(state.auth.userDetail);
+        // setUser(state.auth.userDetail);
+        setUser(store.getState().auth.userDetail);
+        // dispatch(setLoadingFalse());
       })
       .catch((error) => {
         console.error(error.message);
       });
-  }, [store.getState().auth.auth?.authtoken]);
+  }, [store.getState().auth.auth?.authtoken, effectVar, globalEffectVar]);
   console.log("USER=>", user);
   userName = user?.name;
   // console.log("Global Store State=>", store.getState());
 
   const logoutBtn = () => {
     // useEffect(() => {
+    setLoading(true);
+    document.location.reload();
+    navigate("/");
     dispatch(logout())
       .then((result) => {
-        // console.log(result);
-        // navigate("/");
-        setTimeout(() => {
-          // window.location.reload(false);
-          navigate("/");
-        }, 3);
+        console.log("Logout Success");
         setUser(null);
         userName = "";
+        setEffectVar(true);
+        setLoading(false);
       })
       .catch((err) => {
+        setLoading(false);
         console.log(err);
       });
-    // }, []);
+    setLoading(false);
   };
 
   return (
     <>
+      {/* {loading && <Loader />} */}
       {isAunthenticated ? (
         <nav className="navbar navbar-expand-lg navbar-dark navbarHolder">
           <div className="container-fluid">
@@ -65,9 +86,7 @@ const Navbar = ({ pathName, isAunthenticated }) => {
             </Link>
             <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
               <li onClick={logoutBtn}>
-                <a className="dropdown-item" href="#">
-                  Logout
-                </a>
+                <a className="dropdown-item">Logout</a>
               </li>
             </ul>
             <button
@@ -160,7 +179,7 @@ const Navbar = ({ pathName, isAunthenticated }) => {
             >
               <span className="navbar-toggler-icon"></span>
             </button>
-            <div
+            {/* <div
               className="collapse navbar-collapse"
               id="navbarSupportedContent"
             >
@@ -186,7 +205,7 @@ const Navbar = ({ pathName, isAunthenticated }) => {
                   </Link>
                 </li>
               </ul>
-            </div>
+            </div> */}
           </div>
         </nav>
       )}

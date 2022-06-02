@@ -19,17 +19,16 @@ const CreateTaskPage = () => {
 
   const onSubmit = async (e) => {
     e.preventDefault();
-    dispatch(createTask(formData)).then(() => {
-      // navigate("/");
-      // setTimeout(() => {
-      //   window.location.reload(false);
-      // }, 3);
-      // dispatch(loadUser());
-      setFormData({ ...formData, title: "", description: "" });
-      // setFormData({...formData, description: ""});
-      document.getElementById("title").value = "";
-      document.getElementById("description").value = "";
-    });
+    dispatch(createTask(formData))
+      .then(() => {
+        setFormData({ ...formData, title: "", description: "" });
+        document.getElementById("title").value = "";
+        document.getElementById("description").value = "";
+        navigate("/")
+      })
+      .catch((e) => {
+        console.error(e);
+      });
   };
   return (
     <div className="pageContainer">
