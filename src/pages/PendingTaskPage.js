@@ -7,6 +7,8 @@ import store from "../redux/store";
 
 import Loader from "../components/Loader";
 
+import taskNotFound from '../assets/images/taskNotFoundImg3.png'
+
 
 
 const PendingTaskPage = () => {
@@ -56,7 +58,8 @@ const PendingTaskPage = () => {
             );
           })
         ) : (
-          <h1>No Tasks found</h1>
+          // <h1>No Tasks found</h1>
+          <img className="taskNotFoundImg" src={taskNotFound} alt="not task found" />
         )}
       </div>
     </div>

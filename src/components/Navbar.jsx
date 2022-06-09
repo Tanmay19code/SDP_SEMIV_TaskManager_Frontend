@@ -50,6 +50,7 @@ const Navbar = ({
   const logoutBtn = () => {
     // useEffect(() => {
     setLoading(true);
+    navigate("/");
     document.location.reload();
     navigate("/");
     dispatch(logout())
