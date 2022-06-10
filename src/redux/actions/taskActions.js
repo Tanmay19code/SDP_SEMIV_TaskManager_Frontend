@@ -28,6 +28,9 @@ export const createTask = (formData) => async (dispatch) => {
     headers: {
       "Content-Type": "application/json",
       authtoken: authtoken,
+      "Access-Control-Allow-Origin": '*',
+      "Access-Control-Allow-Methods": 'GET,PUT,POST,DELETE,PATCH,OPTIONS',
+      "Access-Control-Allow-Headers": 'Content-Type, Authorization, Content-Length, X-Requested-With',
     },
   };
   const body = {
@@ -37,7 +40,7 @@ export const createTask = (formData) => async (dispatch) => {
   console.log(config, body);
   try {
     const res = await axios.post(
-      "http://localhost:5000/api/task/createtask",
+      "https://task-manager-backend-app.herokuapp.com/api/task/createtask",
       body,
       config
     );
@@ -65,12 +68,15 @@ export const getMyAllTasks = () => async (dispatch) => {
     headers: {
       "Content-Type": "application/json",
       authtoken: authtoken,
+      "Access-Control-Allow-Origin": '*',
+      "Access-Control-Allow-Methods": 'GET,PUT,POST,DELETE,PATCH,OPTIONS',
+      "Access-Control-Allow-Headers": 'Content-Type, Authorization, Content-Length, X-Requested-With',
     },
   };
   const body = {};
   try {
     const res = await axios.post(
-      "http://localhost:5000/api/task/getmyalltasks",
+      "https://task-manager-backend-app.herokuapp.com/api/task/getmyalltasks",
       body,
       config
     );
@@ -98,6 +104,9 @@ export const getMyAllTasksWithDate = (date) => async (dispatch) => {
     headers: {
       "Content-Type": "application/json",
       authtoken: authtoken,
+      "Access-Control-Allow-Origin": '*',
+      "Access-Control-Allow-Methods": 'GET,PUT,POST,DELETE,PATCH,OPTIONS',
+      "Access-Control-Allow-Headers": 'Content-Type, Authorization, Content-Length, X-Requested-With',
     },
   };
   const body = {
@@ -105,7 +114,7 @@ export const getMyAllTasksWithDate = (date) => async (dispatch) => {
   };
   try {
     const res = await axios.post(
-      "http://localhost:5000/api/task/getmyalltaskswithdate",
+      "https://task-manager-backend-app.herokuapp.com/api/task/getmyalltaskswithdate",
       body,
       config
     );
@@ -133,6 +142,9 @@ export const updateTask = (date) => async (dispatch) => {
     headers: {
       "Content-Type": "application/json",
       authtoken: authtoken,
+      "Access-Control-Allow-Origin": '*',
+      "Access-Control-Allow-Methods": 'GET,PUT,POST,DELETE,PATCH,OPTIONS',
+      "Access-Control-Allow-Headers": 'Content-Type, Authorization, Content-Length, X-Requested-With',
     },
   };
   const body = {
@@ -140,7 +152,7 @@ export const updateTask = (date) => async (dispatch) => {
   };
   try {
     const res = await axios.post(
-      "http://localhost:5000/api/task/getmyalltaskswithdate",
+      "https://task-manager-backend-app.herokuapp.com/api/task/getmyalltaskswithdate",
       body,
       config
     );
@@ -169,6 +181,9 @@ export const getMyAllTasksWithDateAndStatus =
       headers: {
         "Content-Type": "application/json",
         authtoken: authtoken,
+        "Access-Control-Allow-Origin": '*',
+        "Access-Control-Allow-Methods": 'GET,PUT,POST,DELETE,PATCH,OPTIONS',
+        "Access-Control-Allow-Headers": 'Content-Type, Authorization, Content-Length, X-Requested-With',
       },
     };
     const body = {
@@ -177,7 +192,7 @@ export const getMyAllTasksWithDateAndStatus =
     };
     try {
       const res = await axios.post(
-        "http://localhost:5000/api/task/getmyalltaskswithdateandstatus",
+        "https://task-manager-backend-app.herokuapp.com/api/task/getmyalltaskswithdateandstatus",
         body,
         config
       );
@@ -205,6 +220,9 @@ export const updateStatus = (isCompleted, id) => async (dispatch) => {
     headers: {
       "Content-Type": "application/json",
       authtoken: authtoken,
+      "Access-Control-Allow-Origin": '*',
+      "Access-Control-Allow-Methods": 'GET,PUT,POST,DELETE,PATCH,OPTIONS',
+      "Access-Control-Allow-Headers": 'Content-Type, Authorization, Content-Length, X-Requested-With',
     },
   };
   const body = {
@@ -212,7 +230,7 @@ export const updateStatus = (isCompleted, id) => async (dispatch) => {
   };
   try {
     const res = await axios.put(
-      `http://localhost:5000/api/task/updatemytask/${id}`,
+      `https://task-manager-backend-app.herokuapp.com/api/task/updatemytask/${id}`,
       body,
       config
     );
@@ -240,12 +258,15 @@ export const deleteTask = (id) => async (dispatch) => {
     headers: {
       "Content-Type": "application/json",
       authtoken: authtoken,
+      "Access-Control-Allow-Origin": '*',
+      "Access-Control-Allow-Methods": 'GET,PUT,POST,DELETE,PATCH,OPTIONS',
+      "Access-Control-Allow-Headers": 'Content-Type, Authorization, Content-Length, X-Requested-With',
     },
   };
   const body = {};
   try {
     const res = await axios.post(
-      `http://localhost:5000/api/task/deletemytask/${id}`,
+      `https://task-manager-backend-app.herokuapp.com/api/task/deletemytask/${id}`,
       body,
       config
     );

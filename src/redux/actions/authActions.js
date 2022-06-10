@@ -27,12 +27,15 @@ export const loadUser = () => async (dispatch) => {
     headers: {
       "Content-Type": "application/json",
       authtoken: authtoken,
+      "Access-Control-Allow-Origin": '*',
+      "Access-Control-Allow-Methods": 'GET,PUT,POST,DELETE,PATCH,OPTIONS',
+      "Access-Control-Allow-Headers": 'Content-Type, Authorization, Content-Length, X-Requested-With',
     },
   };
 
   try {
     const res = await axios.post(
-      "http://localhost:5000/api/auth/getuser",
+      "https://task-manager-backend-app.herokuapp.com/api/auth/getuser",
       body,
       config
     );
@@ -60,13 +63,16 @@ export const register = (formData) => async (dispatch) => {
   const config = {
     headers: {
       "Content-Type": "application/json",
+      "Access-Control-Allow-Origin": '*',
+      "Access-Control-Allow-Methods": 'GET,PUT,POST,DELETE,PATCH,OPTIONS',
+      "Access-Control-Allow-Headers": 'Content-Type, Authorization, Content-Length, X-Requested-With',
     },
   };
   console.log("SIGN_RES=>", body);
   try {
     console.log("CHECK1");
     const res = await axios.post(
-      "http://localhost:5000/api/auth/createuser",
+      "https://task-manager-backend-app.herokuapp.com/api/auth/createuser",
       body,
       config
     );
@@ -95,6 +101,10 @@ export const login = (email, password) => async (dispatch) => {
   const config = {
     headers: {
       "Content-Type": "application/json",
+      "Access-Control-Allow-Origin": '*',
+      "Access-Control-Allow-Methods": 'GET,PUT,POST,DELETE,PATCH,OPTIONS',
+      "Access-Control-Allow-Headers": 'Content-Type, Authorization, Content-Length, X-Requested-With',
+      
     },
   };
 
@@ -102,7 +112,7 @@ export const login = (email, password) => async (dispatch) => {
 
   // try {
   const res = await axios.post(
-    "http://localhost:5000/api/auth/login",
+    "https://task-manager-backend-app.herokuapp.com/api/auth/login",
     body,
     config
   );
